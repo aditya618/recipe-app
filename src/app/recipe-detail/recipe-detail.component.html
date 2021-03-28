@@ -5,7 +5,7 @@
     <p>{{recipe.desc}}</p>
   </div>
   <div class="col-md-4">
-    <img class="img-thumbnail" [src]="recipe.img">
+    <img class="img-thumbnail" [src]="recipe.img!=='' ? recipe.img : 'assets/default.jpg'">
     <div class="d-flex justify-content-end p-2">
       <button (click)="onEdit()" class="btn btn-warning">Edit</button>
       <button (click)="onDelete()" class="btn btn-danger ml-3">Delete</button>

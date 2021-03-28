@@ -15,7 +15,7 @@ export class RecipeListsComponent implements OnInit {
 
   ngOnInit() {
     this.store.collection('recipe').valueChanges({idField: 'id'}).subscribe((r:[]) => {
-      console.log(r);
+      // console.log(r);
       this.recipeList = r;
     });
   }

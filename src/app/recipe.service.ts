@@ -7,7 +7,6 @@ import { IRecipe } from './recipe-model';
 })
 export class RecipeService implements OnInit {
   private selectedRecipe: IRecipe;
-  private isLoggedIn: boolean = false;
 
   constructor() { }
 
@@ -17,6 +16,7 @@ export class RecipeService implements OnInit {
 
   public setSelectedRecipe(data: IRecipe) {
     this.selectedRecipe = data;
+    // this.selectedRecipe.id = id;
   }
   public getSelectedRecipe() {
     return this.selectedRecipe;

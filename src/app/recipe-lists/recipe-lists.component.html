@@ -1,7 +1,7 @@
 <div *ngIf="recipeList && recipeList.length > 0" class="row py-4">
   <div *ngFor="let data of recipeList" class="col-sm-12 col-md-6 col-lg-3 p-2">
     <div class="card" style="width: 16rem;">
-      <img style="height: 141px;" class="card-img-top" [src]="data.img" alt="Card image cap">
+      <img style="height: 141px;" class="card-img-top" [src]="data.img !== '' ? data.img : 'assets/default.jpg'" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{data.title}}</h5>
         <p class="card-text">{{data.desc && data.desc.length > 65 ? data.desc.slice(0,65) + '...' : data.desc}}</p>

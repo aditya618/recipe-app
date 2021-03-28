@@ -24,7 +24,7 @@ export class RecipeDetailComponent implements OnInit {
   public onDelete() {
     this.store.collection('recipe').doc(this.recipe.id).delete()
       .then(() => {
-        console.log('Deleted Successfullt')
+        console.log('Deleted Successfully')
         this.router.navigate(['recipelists'], {skipLocationChange: true})
     })
       .catch(err => console.error(err));

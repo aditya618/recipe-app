@@ -4,16 +4,25 @@
   <input #title name="title" type="text" [value]="action === 'add' ? '' : data.title" [class]="error.title ? 'form-control is-invalid' : 'form-control'" placeholder="your recipe title goes here..">
   <small style="font-size: 14px;color: red;" *ngIf="error.title">Field is required</small>
 </div>
-<div class="form-group">
+<!-- <div class="form-group">
   <label class="label">Image URL: </label>
   <input #imgUrl name="imgUrl" type="text" [value]="action === 'add' ? '' : data.img" [class]="error.imgUrl ? 'form-control is-invalid' : 'form-control'" placeholder="copy and paste image url here..">
   <small style="font-size: 14px;color: red;" *ngIf="error.imgUrl">Field is required</small>
-</div>
+</div> -->
 <div class="form-group">
   <label class="label">Description: </label>
   <textarea #desc name="desc" [value]="action === 'add' ? '' : data.desc" [class]="error.desc ? 'form-control is-invalid' : 'form-control'" placeholder="Say something about it.."></textarea>
   <small style="font-size: 14px;color: red;" *ngIf="error.desc">Field is required</small>
 </div>
+<div class="form-group d-flex">
+  <div>
+    <label class="label">Upload Image</label>
+    <input type="file" (change)="imageChange($event)" class="form-control">
+  </div>
+  <div class="ml-2">
+    <img class="img-thumbnail" style="width: 120px" [src]="imgUrl">
+  </div>
+</div>
 <div class="form-group">
-  <button (click)="onAdd(title.value, imgUrl.value, desc.value)" class="btn btn-primary">{{action === 'add' ? 'Add' : 'Edit'}} Recipe</button>
+  <button (click)="onAdd(title.value, desc.value)" class="btn btn-primary">{{action === 'add' ? 'Add' : 'Edit'}} Recipe</button>
 </div>

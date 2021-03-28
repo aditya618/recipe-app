@@ -18,26 +18,28 @@ export class AddRecipeComponent implements OnInit {
   };
   public action: string = 'add';
   public data: IRecipe;
+  public selectedImg:string = '';
+  public imgUrl: string = '/assets/default.jpg';
+
 
   constructor(private router: Router, private route: ActivatedRoute, private Rservice: RecipeService, private store: AngularFirestore) { }
 
   ngOnInit() {
     this.data = this.Rservice.getSelectedRecipe();
     this.action = this.route.snapshot.paramMap.get('action');
+    if(this.data && this.data.img && this.action === 'edit') {
+      this.imgUrl = this.data.img;
+      this.selectedImg = this.data.img;
+    } else {
+      this.imgUrl = 'assets/default.jpg';
+    }
   }
 
-  public onAdd(title: string, img: string, desc: string) {
+  public onAdd(title: string, desc: string) {
     if (!(title.trim() && title.trim().length > 0)) {
       this.error ={
         title: true,
         imgUrl: false,
-        desc: false
-      };
-    }
-    else if(!(img.trim() && img.trim().length > 0)) {
-      this.error ={
-        title: false,
-        imgUrl: true,
         desc: false
       };
     }
@@ -53,11 +55,18 @@ export class AddRecipeComponent implements OnInit {
         imgUrl: false,
         desc: false
       };
-      const newRecipe: IRecipe = {
+      const newRecipe = {
         title: title,
-        img: img,
+        img: this.selectedImg,
         desc: desc
       };
+      const editRecipe = {
+        id: this.data.id,
+        title: title,
+        img: this.selectedImg,
+        desc: desc
+      };
+      // console.log(newRecipe);
       if(this.action === 'add'){
         this.store.collection('recipe').add(newRecipe)
         .then(() => {
@@ -67,15 +76,31 @@ export class AddRecipeComponent implements OnInit {
         .catch(err => console.error(err));
 
       } else {
-        this.store.collection('recipe').doc(this.data.id).update(newRecipe)
+        this.store.collection('recipe').doc(this.data.id).update(editRecipe)
           .then(() => {
-            console.log('Deleted Succesfully');
+            this.Rservice.setSelectedRecipe(editRecipe);
+            console.log('Updated Succesfully');
             this.router.navigate(['recipedetail'], {skipLocationChange: true});
           })
           .catch(err => console.error(err));
       }
 
     }
+  }
+
+  public imageChange(event) {
+    if(event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imgUrl = <string>e.target.result;
+        this.selectedImg = <string>e.target.result;
+        console.log(e.target.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
+      this.imgUrl = 'assets/default.jpg'
+    }
+
   }
 
 }
