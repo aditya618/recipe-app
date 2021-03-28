@@ -1,0 +1,14 @@
+<div *ngIf="recipe" class="row mt-3">
+  <div class="col-md-8">
+    <h1>{{recipe.title}}</h1>
+    <hr>
+    <p>{{recipe.desc}}</p>
+  </div>
+  <div class="col-md-4">
+    <img class="img-thumbnail" [src]="recipe.img">
+    <div class="d-flex justify-content-end p-2">
+      <button (click)="onEdit()" class="btn btn-warning">Edit</button>
+      <button (click)="onDelete()" class="btn btn-danger ml-3">Delete</button>
+    </div>
+  </div>
+</div>
