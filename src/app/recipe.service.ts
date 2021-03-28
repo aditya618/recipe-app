@@ -16,7 +16,6 @@ export class RecipeService implements OnInit {
 
   public setSelectedRecipe(data: IRecipe) {
     this.selectedRecipe = data;
-    // this.selectedRecipe.id = id;
   }
   public getSelectedRecipe() {
     return this.selectedRecipe;
