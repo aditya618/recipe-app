@@ -55,19 +55,14 @@ export class AddRecipeComponent implements OnInit {
         imgUrl: false,
         desc: false
       };
-      const newRecipe = {
-        title: title,
-        img: this.selectedImg,
-        desc: desc
-      };
-      const editRecipe = {
-        id: this.data.id,
-        title: title,
-        img: this.selectedImg,
-        desc: desc
-      };
+
       // console.log(newRecipe);
       if(this.action === 'add'){
+        const newRecipe = {
+          title: title,
+          img: this.selectedImg,
+          desc: desc
+        };
         this.store.collection('recipe').add(newRecipe)
         .then(() => {
           console.log('Added Succesfully');
@@ -76,6 +71,12 @@ export class AddRecipeComponent implements OnInit {
         .catch(err => console.error(err));
 
       } else {
+        const editRecipe = {
+          id: this.data.id,
+          title: title,
+          img: this.selectedImg,
+          desc: desc
+        };
         this.store.collection('recipe').doc(this.data.id).update(editRecipe)
           .then(() => {
             this.Rservice.setSelectedRecipe(editRecipe);
@@ -94,7 +95,7 @@ export class AddRecipeComponent implements OnInit {
       reader.onload = (e) => {
         this.imgUrl = <string>e.target.result;
         this.selectedImg = <string>e.target.result;
-        console.log(e.target.result);
+        // console.log(e.target.result);
       };
       reader.readAsDataURL(event.target.files[0]);
     } else {
